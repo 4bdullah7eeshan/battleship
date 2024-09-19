@@ -5,9 +5,9 @@ export default function createShip(length, hitCount, sinkStatus) {
  
  const isSunk = () => {
     if (hitCount === length) {
-        return true;
+        sinkStatus = true;
     } else {
-        return false;
+        sinkStatus = false;
     }
  };
 }
