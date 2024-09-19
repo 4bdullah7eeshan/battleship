@@ -9,5 +9,6 @@ export default function createShip(length, hitCount, sinkStatus) {
     } else {
         sinkStatus = false;
     }
+    return sinkStatus;
  };
 }
