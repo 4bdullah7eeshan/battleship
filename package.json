@@ -4,7 +4,10 @@
   "description": "Implementation of the 'Battleship' game using TDD",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "webpack serve --open --config webpack.dev.js",
+    "build": "webpack --config webpack.prod.js",
+    "deploy": "git subtree push --prefix dist origin gh-pages",
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
