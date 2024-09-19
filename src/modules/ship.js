@@ -11,4 +11,10 @@ export default function createShip(length, hitCount, sinkStatus) {
     }
     return sinkStatus;
  };
+
+ return {
+    length,
+    hitCount,
+    sinkStatus,
+ }
 }
