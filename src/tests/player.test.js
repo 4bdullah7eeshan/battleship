@@ -31,6 +31,10 @@ describe('Player factory', () => {
         });
 
         describe('missing attacks on opponent game board', () => {
+            test('returns false when missing an attack on ship', () => {
+                const result = realPlayer.attack(opponent.gameBoard, 5, 5);
+                expect(result).toBe(false);
+            });
 
         });
 
