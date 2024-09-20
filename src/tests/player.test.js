@@ -23,6 +23,11 @@ describe('Player factory', () => {
                 expect(result).toBe(true);
             });
 
+            test('does not register attack as missed', () => {
+                realPlayer.attack(opponent.gameBoard, 0, 0);
+                expect(opponent.gameBoard.getMissedAttacks()).not.toContain('0,0');
+            });
+
         });
 
         describe('missing attacks on opponent game board', () => {
