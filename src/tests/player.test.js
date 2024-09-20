@@ -55,5 +55,7 @@ describe('Player factory', () => {
             expect(result).toBeDefined();
         });
 
+        // Zee: Should I test pickRandomCoordinate() too? How?
+
     });
 });
