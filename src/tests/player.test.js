@@ -11,6 +11,9 @@ describe('Player factory', () => {
     });
 
     describe('Real Player', () => {
+        test('should contain its own game board', () => {
+            expect(realPlayer.gameBoard).toBeDefined();
+        });
 
     });
 
