@@ -10,4 +10,11 @@ describe('Player factory', () => {
         opponent = createPlayer("real");
     });
 
+    describe('Real Player', () => {
+
+    });
+
+    describe('Computer Player', () => {
+
+    });
 });
