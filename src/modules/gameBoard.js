@@ -13,4 +13,8 @@ export default function createGameBoard() {
         // Determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot.
         // On hold!
     };
+
+    const checkIfAllShipsAreSunk = () => {
+        return fleet.every(({ ship }) => ship.isSunk());
+    };
 }
