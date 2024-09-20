@@ -8,6 +8,8 @@ describe('Player factory', () => {
         realPlayer = createPlayer("real");
         computerPlayer = createPlayer("computer");
         opponent = createPlayer("real");
+
+        opponent.gameBoard.placeShip(2, [[0, 0], [0, 1]]);
     });
 
     describe('Real Player', () => {
