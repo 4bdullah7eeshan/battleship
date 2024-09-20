@@ -16,6 +16,9 @@ export default function createPlayer(playerType) {
 
    } else {
     // for computer
+    const pickRandomCoordinate = () => {
+        return [Math.floor(Math.random() * 10), Math.floor(Math.random() * 10)];
+    };
    }
 
 }
