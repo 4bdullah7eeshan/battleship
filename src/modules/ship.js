@@ -1,7 +1,6 @@
 export default function createShip(length) {
- let hitCount, sinkStatus;
+ let hitCount;
  hitCount = 0;
- sinkStatus = false;
 
  const hit = () => {
     hitCount++;
@@ -9,16 +8,14 @@ export default function createShip(length) {
  
  const isSunk = () => {
     if (hitCount === length) {
-        sinkStatus = true;
+        return true;
     } else {
-        sinkStatus = false;
+        return false;
     }
-    return sinkStatus;
  };
 
  return {
     length,
     hitCount,
-    sinkStatus,
  }
 }
