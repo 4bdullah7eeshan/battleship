@@ -40,4 +40,12 @@ describe('Game board', () => {
         gameBoard.receiveAttack(2, 2); // Miss
         expect(gameBoard.getMissedAttacks()).toContain('2,2');
     });
+
+    test('reports if all ships are sunk', () => {
+        gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
+        gameBoard.receiveAttack(0, 0);
+        gameBoard.receiveAttack(0, 1);
+        gameBoard.receiveAttack(0, 2);
+        expect(gameBoard.checkIfAllShipsAreSunk()).toBe(true);
+    });
 });
