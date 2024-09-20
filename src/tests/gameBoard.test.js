@@ -24,4 +24,9 @@ describe('Game board', () => {
             }
         ]);
     });
+
+    test('report if ship receives attacks correctly', () => {
+        gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
+        expect(gameBoard.receiveAttack(0, 0)).toBe(true); 
+    });
 });
