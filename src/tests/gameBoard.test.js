@@ -2,13 +2,13 @@ import createShip from "../modules/ship.js";
 import createGameBoard from "../modules/gameBoard.js";
 
 describe('Game board', () => {
-    let gameboard;
+    let gameBoard;
 
     beforeEach(() => {
-      gameboard = createGameboard();
+      gameBoard = createGameboard();
     });
 
-    
+
 
 
 });
