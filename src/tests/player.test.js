@@ -50,5 +50,10 @@ describe('Player factory', () => {
             expect(computerPlayer.gameBoard).toBeDefined();
         });
 
+        test('should attack opponent with random coordinates', () => {
+            const result = computerPlayer.computerAttack(opponent.gameBoard);
+            expect(result).toBeDefined();
+        });
+
     });
 });
