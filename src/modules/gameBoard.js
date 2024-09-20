@@ -10,6 +10,8 @@ export default function createGameBoard() {
         fleet.push({ ship, coordinatesOfShip });
     };
 
+    const getFleet = () => fleet;
+
     const receiveAttack = (x, y) => {
         // Determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot.
         for (const { ship, coordinatesOfShip } of fleet) {
@@ -22,13 +24,17 @@ export default function createGameBoard() {
         return false;
     };
 
+    const getMissedAttacks = () => Array.from(missedAttacks);
+
     const checkIfAllShipsAreSunk = () => {
         return fleet.every(({ ship }) => ship.isSunk());
     };
 
     return {
         placeShip,
+        getFleet,
         receiveAttack,
+        getMissedAttacks,
         checkIfAllShipsAreSunk,
     }
 }
