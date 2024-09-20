@@ -8,4 +8,8 @@ export default function createGameBoard() {
         const ship = createShip(lengthOfShip);
         fleet.push({ ship, coordinatesOfShip });
     };
+
+    const receiveAttack = () => {
+
+    };
 }
