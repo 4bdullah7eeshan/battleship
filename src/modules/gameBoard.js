@@ -10,6 +10,7 @@ export default function createGameBoard() {
     };
 
     const receiveAttack = (x, y) => {
-
+        // Determines whether or not the attack hit a ship and then sends the ‘hit’ function to the correct ship, or records the coordinates of the missed shot.
+        // On hold!
     };
 }
