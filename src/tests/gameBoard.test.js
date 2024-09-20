@@ -34,4 +34,10 @@ describe('Game board', () => {
         gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
         expect(gameBoard.receiveAttack(2, 0)).toBe(false); 
     });
+
+    test('record missed attacks correctly', () => {
+        gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
+        gameBoard.receiveAttack(2, 2); // Miss
+        expect(gameBoard.getMissedAttacks()).toContain('2,2');
+    });
 });
