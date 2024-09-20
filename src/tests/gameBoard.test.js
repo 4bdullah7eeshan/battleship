@@ -5,54 +5,60 @@ describe('Game board', () => {
     let gameBoard;
 
     beforeEach(() => {
-      gameBoard = createGameBoard();
+        gameBoard = createGameBoard();
     });
 
-    test('places ships accurately', () => {
-        gameBoard.placeShip(2, [[1, 0], [1, 1]]);
+    describe('Ship placement', () => {
+        test('places ships accurately', () => {
+            gameBoard.placeShip(2, [[1, 0], [1, 1]]);
 
-        const fleet = gameBoard.getFleet();
+            const fleet = gameBoard.getFleet();
 
-        expect(fleet).toEqual([
-            {
-                ship: {
-                    length: 2,
-                    hit: expect.any(Function),
-                    isSunk: expect.any(Function)
-                },
-                coordinatesOfShip: [[1, 0], [1, 1]],
-            }
-        ]);
+            expect(fleet).toEqual([
+                {
+                    ship: {
+                        length: 2,
+                        hit: expect.any(Function),
+                        isSunk: expect.any(Function)
+                    },
+                    coordinatesOfShip: [[1, 0], [1, 1]],
+                }
+            ]);
+        });
     });
 
-    test('report if ship receives attacks correctly', () => {
-        gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
-        expect(gameBoard.receiveAttack(0, 0)).toBe(true); 
+    describe('Receiving attacks', () => {
+        test('report if ship receives attacks correctly', () => {
+            gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
+            expect(gameBoard.receiveAttack(0, 0)).toBe(true); 
+        });
+
+        test('report if ship does not receive attacks', () => {
+            gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
+            expect(gameBoard.receiveAttack(2, 0)).toBe(false); 
+        });
+
+        test('record missed attacks correctly', () => {
+            gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
+            gameBoard.receiveAttack(2, 2); // Miss
+            expect(gameBoard.getMissedAttacks()).toContain('2,2');
+        });
     });
 
-    test('report if ship does not receive attacks', () => {
-        gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
-        expect(gameBoard.receiveAttack(2, 0)).toBe(false); 
-    });
+    describe('Sinking ships', () => {
+        test('reports if all ships are sunk', () => {
+            gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
+            gameBoard.receiveAttack(0, 0);
+            gameBoard.receiveAttack(0, 1);
+            gameBoard.receiveAttack(0, 2);
+            expect(gameBoard.checkIfAllShipsAreSunk()).toBe(true);
+        });
 
-    test('record missed attacks correctly', () => {
-        gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
-        gameBoard.receiveAttack(2, 2); // Miss
-        expect(gameBoard.getMissedAttacks()).toContain('2,2');
-    });
-
-    test('reports if all ships are sunk', () => {
-        gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
-        gameBoard.receiveAttack(0, 0);
-        gameBoard.receiveAttack(0, 1);
-        gameBoard.receiveAttack(0, 2);
-        expect(gameBoard.checkIfAllShipsAreSunk()).toBe(true);
-    });
-
-    test('reports if all ships are not sunk', () => {
-        gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
-        gameBoard.receiveAttack(0, 0);
-        gameBoard.receiveAttack(0, 1);
-        expect(gameBoard.checkIfAllShipsAreSunk()).toBe(false);
+        test('reports if all ships are not sunk', () => {
+            gameBoard.placeShip(3, [[0, 0], [0, 1], [0, 2]]);
+            gameBoard.receiveAttack(0, 0);
+            gameBoard.receiveAttack(0, 1);
+            expect(gameBoard.checkIfAllShipsAreSunk()).toBe(false);
+        });
     });
 });
