@@ -7,11 +7,7 @@ export default function createShip(length) {
  };
  
  const isSunk = () => {
-    if (hitCount === length) {
-        return true;
-    } else {
-        return false;
-    }
+    return hitCount === length;
  };
 
  return {
