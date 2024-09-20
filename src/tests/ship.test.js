@@ -10,15 +10,17 @@ describe("Ship factory", () => {
     });
 
     describe('Ship sunk status', () => {
+        let ship;
+        beforeEach(() => {
+            ship = createShip(3);
+        });
         test('Check if ship is not sunk until all hits received', () => {
-            const ship = createShip(3);
-
             ship.hit();    
-            expect(ship.isSunk()).toBe(false);
-
+            expect(ship.isSunk()).toBe(false);            
+        });
+        test('Check if ship is sunk when it receives all hits', () => {
             ship.hit();
-            expect(ship.isSunk()).toBe(false);
-            
+            ship.hit();
             ship.hit();
             expect(ship.isSunk()).toBe(true);
         });
