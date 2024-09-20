@@ -18,6 +18,9 @@ describe('Player factory', () => {
     });
 
     describe('Computer Player', () => {
+        test('should contain its own game board', () => {
+            expect(computerPlayer.gameBoard).toBeDefined();
+        });
 
     });
 });
