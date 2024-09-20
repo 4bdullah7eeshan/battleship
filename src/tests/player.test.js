@@ -15,6 +15,14 @@ describe('Player factory', () => {
             expect(realPlayer.gameBoard).toBeDefined();
         });
 
+        describe('attacking opponent game board', () => {
+
+        });
+
+        describe('missing attacks on opponent game board', () => {
+
+        });
+
     });
 
     describe('Computer Player', () => {
