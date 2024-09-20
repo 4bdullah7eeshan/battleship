@@ -6,5 +6,6 @@ export default function createGameBoard() {
     const placeShip = (lengthOfShip, coordinatesOfShip) => {
         // This will place the ships on the game board
         const ship = createShip(lengthOfShip);
+        fleet.push({ ship, coordinatesOfShip });
     };
 }
