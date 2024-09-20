@@ -18,6 +18,10 @@ describe('Player factory', () => {
         });
 
         describe('attacking opponent game board', () => {
+            test('returns true when hitting a ship', () => {
+                const result = realPlayer.attack(opponent.gameBoard, 0, 0);
+                expect(result).toBe(true);
+            });
 
         });
 
