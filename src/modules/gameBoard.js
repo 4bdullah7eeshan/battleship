@@ -25,4 +25,10 @@ export default function createGameBoard() {
     const checkIfAllShipsAreSunk = () => {
         return fleet.every(({ ship }) => ship.isSunk());
     };
+
+    return {
+        placeShip,
+        receiveAttack,
+        checkIfAllShipsAreSunk,
+    }
 }
