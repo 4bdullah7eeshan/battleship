@@ -1,4 +1,8 @@
-export default function createShip(length, hitCount, sinkStatus) {
+export default function createShip(length) {
+ let hitCount, sinkStatus;
+ hitCount = 0;
+ sinkStatus = false;
+
  const hit = () => {
     hitCount++;
  };
