@@ -1,0 +1,32 @@
+/* Modal */
+
+dialog {
+    outline: 1px solid black;
+    padding: 1rem;
+    text-align: center;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+}
+
+#modal-grid {
+    display: grid;
+    grid-template-columns: repeat(10, 30px);
+    grid-template-rows: repeat(10, 30px);
+    gap: 2px;
+}
+
+#modal-grid div {
+    width: 30px;
+    height: 30px;
+    background-color: lightgray;
+    outline: 1px solid black;
+}

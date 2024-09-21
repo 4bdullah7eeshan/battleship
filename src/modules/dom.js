@@ -3,11 +3,8 @@ const dom = (function () {
     // 1. Render app
     // 2. Add event listeners
     // Maintain another module for controlling the game. This should do pure DOM stuff
-    const playerBoard = document.getElementById('player-board');
-    const computerBoard = document.getElementById('computer-board');
     const modal = document.querySelector('dialog');
-    const randomButton = document.getElementById('random-placement');
-    const startButton = document.getElementById('start-game');
+    const modalGrid = document.getElementById('modal-grid');
 
     const generateGrid = (boardElement) => {
         for (let i = 0; i < 10; i++) {
@@ -23,29 +20,12 @@ const dom = (function () {
     };
 
     const setupUI = () => {
-        generateGrid(playerBoard);
-        generateGrid(computerBoard);
-
+        generateGrid(modalGrid);
         modal.showModal();
-    };
-
-    const onRandomPlaceShips = (callback) => {
-        randomButton.addEventListener('click', callback);
-    };
-
-    const closeModal = () => {
-        modal.close();
-    };
-
-    const onStartGame = (callback) => {
-        startButton.addEventListener('click', callback);
     };
 
     return {
         setupUI,
-        onRandomPlaceShips,
-        closeModal,
-        onStartGame,
     };
 })();
 
