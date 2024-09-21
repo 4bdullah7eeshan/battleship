@@ -27,4 +27,24 @@ const dom = (function () {
 
         modal.showModal();
     };
+
+    const onRandomPlaceShips = (callback) => {
+        const randomButton = modal.querySelector('button');
+        randomButton.addEventListener('click', callback);
+    };
+
+    const closeModal = () => {
+        modal.close();
+    };
+
+    const onStartGame = (callback) => {
+        startButton.addEventListener('click', callback);
+    };
+
+    return {
+        setupUI,
+        onRandomPlaceShips,
+        closeModal,
+        onStartGame,
+    };
 })();
