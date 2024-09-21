@@ -6,6 +6,7 @@ const dom = (function () {
     const playerBoard = document.getElementById('player-board');
     const computerBoard = document.getElementById('computer-board');
     const modal = document.querySelector('dialog');
+    const randomButton = document.getElementById('random-placement');
     const startButton = document.getElementById('start-game');
 
     const generateGrid = (boardElement) => {
@@ -29,7 +30,6 @@ const dom = (function () {
     };
 
     const onRandomPlaceShips = (callback) => {
-        const randomButton = modal.querySelector('button');
         randomButton.addEventListener('click', callback);
     };
 
