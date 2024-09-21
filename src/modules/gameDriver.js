@@ -17,4 +17,14 @@ const gameDriver = (() => {
         });
     };
 
+    const startGame = () => {
+        dom.setupAttackListeners((x, y) => {
+            const success = player.attack(computer.gameBoard, x, y);
+        });
+    };
+
+    return {
+        initializeGame,
+    };
+
 })();
