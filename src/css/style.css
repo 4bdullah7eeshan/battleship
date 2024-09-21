@@ -1,5 +1,9 @@
 /* Modal */
 
+#modal-grid .ship {
+    background-color: black; /* You can use any color or design */
+}
+
 dialog {
     outline: 1px solid black;
     padding: 1rem;
@@ -30,3 +34,4 @@ dialog {
     background-color: lightgray;
     outline: 1px solid black;
 }
+
