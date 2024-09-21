@@ -48,3 +48,5 @@ const dom = (function () {
         onStartGame,
     };
 })();
+
+export default dom;
