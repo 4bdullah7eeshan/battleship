@@ -10,6 +10,33 @@ const dom = (function () {
     const playerBoard = document.getElementById('player-board');
     const computerBoard = document.getElementById('computer-board');
 
+    const ships = [
+        { length: 5 },
+        { length: 4 },
+        { length: 3 },
+        { length: 3 },
+        { length: 2 },
+    ];
+
+    const shipPositions = [];
+
+    const placeShipsOnBoard = (boardElement) => {
+        // Clear previous ships from the board
+        boardElement.querySelectorAll('div').forEach(cell => {
+            cell.classList.remove('ship');
+        });
+
+        // Place ships based on stored positions
+        shipPositions.forEach(position => {
+            position.forEach(cell => {
+                const targetCell = boardElement.querySelector(`div[data-x="${cell.x}"][data-y="${cell.y}"]`);
+                if (targetCell) {
+                    targetCell.classList.add('ship');
+                }
+            });
+        });
+    };
+
 
 
     const generateGrid = (boardElement) => {
@@ -29,42 +56,43 @@ const dom = (function () {
         modalGrid.querySelectorAll('div').forEach(cell => {
             cell.classList.remove('ship');
         });
-    
-        const ships = [
-            { length: 5 },
-            { length: 4 },
-            { length: 3 },
-            { length: 3 },
-            { length: 2 },
-        ];
-    
+        shipPositions.length = 0; // Clear previous ship positions
+
         ships.forEach(ship => {
             let placed = false;
-    
+
             while (!placed) {
                 const isHorizontal = Math.random() > 0.5;
                 const x = Math.floor(Math.random() * (isHorizontal ? 10 - ship.length : 10));
                 const y = Math.floor(Math.random() * (isHorizontal ? 10 : 10 - ship.length));
-    
+
                 const available = [];
                 for (let i = 0; i < ship.length; i++) {
-                    const targetCell = isHorizontal
-                        ? modalGrid.querySelector(`div[data-x="${x}"][data-y="${y + i}"]`)
-                        : modalGrid.querySelector(`div[data-x="${x + i}"][data-y="${y}"]`);
-    
-                    if (targetCell && !targetCell.classList.contains('ship')) {
-                        available.push(targetCell);
-                    } else {
-                        break;
-                    }
+                    const cell = {
+                        x: isHorizontal ? x : x + i,
+                        y: isHorizontal ? y + i : y
+                    };
+                    available.push(cell);
                 }
-    
-                if (available.length === ship.length) {
-                    available.forEach(cell => {
-                        cell.classList.add('ship');
-                        console.log(`Placing ship at (${cell.dataset.x}, ${cell.dataset.y})`);
-                    });
+
+                // Check if the cells are available
+                const canPlace = available.every(cell => {
+                    const targetCell = modalGrid.querySelector(`div[data-x="${cell.x}"][data-y="${cell.y}"]`);
+                    return targetCell && !targetCell.classList.contains('ship');
+                });
+
+                if (canPlace) {
+                    // Store the positions of this ship
+                    shipPositions.push(available);
                     placed = true;
+
+                    // Place ships on the modal grid
+                    available.forEach(cell => {
+                        const targetCell = modalGrid.querySelector(`div[data-x="${cell.x}"][data-y="${cell.y}"]`);
+                        if (targetCell) {
+                            targetCell.classList.add('ship');
+                        }
+                    });
                 }
             }
         });
@@ -72,7 +100,9 @@ const dom = (function () {
     };
 
     const startGame = () => {
+        console.log("cc")
         modal.close();
+        placeShipsOnBoard(playerBoard);
     };
     
 
@@ -82,6 +112,7 @@ const dom = (function () {
         generateGrid(modalGrid);
         modal.showModal();
         randomButton.addEventListener('click', randomlyPlaceShips);
+        startButton.addEventListener('click', startGame);
     };
 
     return {

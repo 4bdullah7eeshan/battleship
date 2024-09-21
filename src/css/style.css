@@ -1,10 +1,11 @@
 /* Modal */
 
-#modal-grid .ship {
+#modal-grid .ship,
+#player-board .ship {
     background-color: black; /* You can use any color or design */
 }
 
-dialog {
+dialog[open] {
     outline: 1px solid black;
     padding: 1rem;
     text-align: center;
