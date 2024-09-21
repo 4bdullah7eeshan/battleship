@@ -6,6 +6,7 @@ const dom = (function () {
     const modal = document.querySelector('dialog');
     const modalGrid = document.getElementById('modal-grid');
     const randomButton = document.getElementById('random-placement');
+    const startButton = document.getElementById('start-game');
 
     const generateGrid = (boardElement) => {
         for (let i = 0; i < 10; i++) {
@@ -63,6 +64,11 @@ const dom = (function () {
                 }
             }
         });
+        startButton.classList.remove('hidden');
+    };
+
+    const startGame = () => {
+        modal.close();
     };
     
 

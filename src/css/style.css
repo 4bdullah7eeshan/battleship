@@ -35,3 +35,6 @@ dialog {
     outline: 1px solid black;
 }
 
+.hidden {
+    display: none;
+}
