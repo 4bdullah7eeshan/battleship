@@ -3,4 +3,10 @@ const dom = (function () {
     // 1. Render app
     // 2. Add event listeners
     // Maintain another module for controlling the game. This should do pure DOM stuff
+    const playerBoard = document.getElementById('player-board');
+    const computerBoard = document.getElementById('computer-board');
+    const modal = document.querySelector('dialog');
+    const startButton = document.getElementById('start-game');
+
+    
 })();
