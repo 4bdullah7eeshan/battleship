@@ -29,3 +29,5 @@ const gameDriver = (() => {
     };
 
 })();
+
+export default gameDriver;
