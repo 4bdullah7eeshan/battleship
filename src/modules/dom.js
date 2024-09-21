@@ -7,6 +7,10 @@ const dom = (function () {
     const modalGrid = document.getElementById('modal-grid');
     const randomButton = document.getElementById('random-placement');
     const startButton = document.getElementById('start-game');
+    const playerBoard = document.getElementById('player-board');
+    const computerBoard = document.getElementById('computer-board');
+
+
 
     const generateGrid = (boardElement) => {
         for (let i = 0; i < 10; i++) {
@@ -73,6 +77,8 @@ const dom = (function () {
     
 
     const setupUI = () => {
+        generateGrid(playerBoard);
+        generateGrid(computerBoard);
         generateGrid(modalGrid);
         modal.showModal();
         randomButton.addEventListener('click', randomlyPlaceShips);

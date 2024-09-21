@@ -21,14 +21,18 @@ dialog {
     gap: 1rem;
 }
 
-#modal-grid {
+#modal-grid,
+#player-board,
+#computer-board {
     display: grid;
     grid-template-columns: repeat(10, 30px);
     grid-template-rows: repeat(10, 30px);
     gap: 2px;
 }
 
-#modal-grid div {
+#modal-grid div,
+#player-board div,
+#computer-board div {
     width: 30px;
     height: 30px;
     background-color: lightgray;
@@ -37,4 +41,12 @@ dialog {
 
 .hidden {
     display: none;
+}
+
+#game-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10rem;
 }
