@@ -20,4 +20,11 @@ const dom = (function () {
             }
         }
     };
+
+    const setupUI = () => {
+        generateGrid(playerBoard);
+        generateGrid(computerBoard);
+
+        modal.showModal();
+    };
 })();
