@@ -1,5 +1,6 @@
 // to drive the game
 import dom from "./dom.js";
+import createPlayer from './player.js';
 
 const gameDriver = (() => {
     let player, computer;
