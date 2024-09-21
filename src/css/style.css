@@ -1,8 +1,9 @@
 /* Modal */
 
 #modal-grid .ship,
-#player-board .ship {
-    background-color: black; /* You can use any color or design */
+#player-board .ship,
+#computer-board .ship {
+    background-color: black;
 }
 
 dialog[open] {

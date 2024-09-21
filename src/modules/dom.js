@@ -1,8 +1,4 @@
 const dom = (function () {
-    // This should do the following things:
-    // 1. Render app
-    // 2. Add event listeners
-    // Maintain another module for controlling the game. This should do pure DOM stuff
     const modal = document.querySelector('dialog');
     const modalGrid = document.getElementById('modal-grid');
     const randomButton = document.getElementById('random-placement');
@@ -18,16 +14,14 @@ const dom = (function () {
         { length: 2 },
     ];
 
-    const shipPositions = [];
+    const playerShipPositions = [];
 
-    const placeShipsOnBoard = (boardElement) => {
-        // Clear previous ships from the board
+    const placeShipsOnBoard = (boardElement, positions) => {
         boardElement.querySelectorAll('div').forEach(cell => {
             cell.classList.remove('ship');
         });
 
-        // Place ships based on stored positions
-        shipPositions.forEach(position => {
+        positions.forEach(position => {
             position.forEach(cell => {
                 const targetCell = boardElement.querySelector(`div[data-x="${cell.x}"][data-y="${cell.y}"]`);
                 if (targetCell) {
@@ -37,12 +31,9 @@ const dom = (function () {
         });
     };
 
-
-
     const generateGrid = (boardElement) => {
         for (let i = 0; i < 10; i++) {
             for (let j = 0; j < 10; j++) {
-                // O(n^2) is fine for now! Will refactor this later.
                 const cell = document.createElement('div');
                 cell.classList.add('cell');
                 cell.dataset.x = i;
@@ -52,12 +43,9 @@ const dom = (function () {
         }
     };
 
-    const randomlyPlaceShips = () => {
-        modalGrid.querySelectorAll('div').forEach(cell => {
-            cell.classList.remove('ship');
-        });
-        shipPositions.length = 0; // Clear previous ship positions
-
+    const randomlyPlaceShips = (boardElement, storePositions) => {
+        const positions = [];
+        
         ships.forEach(ship => {
             let placed = false;
 
@@ -75,20 +63,17 @@ const dom = (function () {
                     available.push(cell);
                 }
 
-                // Check if the cells are available
                 const canPlace = available.every(cell => {
-                    const targetCell = modalGrid.querySelector(`div[data-x="${cell.x}"][data-y="${cell.y}"]`);
+                    const targetCell = boardElement.querySelector(`div[data-x="${cell.x}"][data-y="${cell.y}"]`);
                     return targetCell && !targetCell.classList.contains('ship');
                 });
 
                 if (canPlace) {
-                    // Store the positions of this ship
-                    shipPositions.push(available);
+                    positions.push(available);
                     placed = true;
 
-                    // Place ships on the modal grid
                     available.forEach(cell => {
-                        const targetCell = modalGrid.querySelector(`div[data-x="${cell.x}"][data-y="${cell.y}"]`);
+                        const targetCell = boardElement.querySelector(`div[data-x="${cell.x}"][data-y="${cell.y}"]`);
                         if (targetCell) {
                             targetCell.classList.add('ship');
                         }
@@ -96,22 +81,30 @@ const dom = (function () {
                 }
             }
         });
-        startButton.classList.remove('hidden');
+
+        if (storePositions) {
+            playerShipPositions.push(...positions);
+        }
+
+        return positions; 
     };
 
     const startGame = () => {
-        console.log("cc")
         modal.close();
-        placeShipsOnBoard(playerBoard);
+        placeShipsOnBoard(playerBoard, playerShipPositions);
+        randomlyPlaceShips(computerBoard, false); 
     };
-    
 
     const setupUI = () => {
         generateGrid(playerBoard);
         generateGrid(computerBoard);
         generateGrid(modalGrid);
         modal.showModal();
-        randomButton.addEventListener('click', randomlyPlaceShips);
+        randomButton.addEventListener('click', () => {
+            playerShipPositions.length = 0; 
+            randomlyPlaceShips(modalGrid, true);
+            startButton.classList.remove('hidden');
+        });
         startButton.addEventListener('click', startGame);
     };
 
