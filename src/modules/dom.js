@@ -160,6 +160,9 @@ const dom = (function () {
         startButton.addEventListener('click', () => {
             startGame();
         });
+        restartButton.addEventListener('click', () => {
+            location.reload();
+        });
     };
 
     const updateCellColor = (boardElement, x, y, success) => {
