@@ -1,10 +1,15 @@
+import createGameBoard from "./gameBoard.js";
+
 const dom = (function () {
-    const modal = document.querySelector('dialog');
+    const modal = document.getElementById('ship-placement-modal');
     const modalGrid = document.getElementById('modal-grid');
     const randomButton = document.getElementById('random-placement');
     const startButton = document.getElementById('start-game');
     const playerBoard = document.getElementById('player-board');
     const computerBoard = document.getElementById('computer-board');
+    const gameOverModal = document.getElementById('game-over-modal');
+    const winnerAnnouncement = document.getElementById('winner-announcement');
+    const restartButton = document.getElementById('restart-game');
 
     const ships = [
         { length: 5 },
@@ -13,6 +18,9 @@ const dom = (function () {
         { length: 3 },
         { length: 2 },
     ];
+
+    const playerGameBoard = createGameBoard(); 
+    const computerGameBoard = createGameBoard(); 
 
     const playerShipPositions = [];
 
@@ -43,7 +51,16 @@ const dom = (function () {
         }
     };
 
-    const randomlyPlaceShips = (boardElement, storePositions) => {
+    const clearBoard = (boardElement) => {
+        boardElement.querySelectorAll('div').forEach(cell => {
+            cell.classList.remove('ship');
+        });
+    };
+
+    const randomlyPlaceShips = (boardElement, storePositions, gameBoard) => {
+        clearBoard(boardElement);
+        gameBoard.resetBoard();
+
         const positions = [];
         
         ships.forEach(ship => {
@@ -78,6 +95,10 @@ const dom = (function () {
                             targetCell.classList.add('ship');
                         }
                     });
+
+                    // Place ship on game board using `gameBoard.placeShip()`
+                    const shipCoordinates = available.map(cell => [cell.x, cell.y]);
+                    gameBoard.placeShip(ship.length, shipCoordinates);
                 }
             }
         });
@@ -91,10 +112,39 @@ const dom = (function () {
 
     const startGame = () => {
         modal.close();
-        placeShipsOnBoard(playerBoard, playerShipPositions);
-        randomlyPlaceShips(computerBoard, false); 
+        //placeShipsOnBoard(playerBoard, playerShipPositions);
+        // randomlyPlaceShips(computerBoard, false, computerGameBoard);
     };
 
+/*    const setupAttackListeners = (attackHandler) => {
+        computerBoard.querySelectorAll('.cell').forEach(cell => {
+            cell.addEventListener('click', () => {
+                const x = parseInt(cell.dataset.x, 10);
+                const y = parseInt(cell.dataset.y, 10);
+                attackHandler(x, y);
+            });
+        });
+    };*/
+    const setupAttackListeners = (attackHandler) => {
+        computerBoard.querySelectorAll('.cell').forEach(cell => {
+            const handleClick = () => {
+                const x = parseInt(cell.dataset.x, 10);
+                const y = parseInt(cell.dataset.y, 10);
+    
+                // Call the attackHandler to process the attack
+                attackHandler(x, y);
+    
+                // Remove the event listener after the first click
+                cell.removeEventListener('click', handleClick);
+            };
+    
+            // Attach the click event listener
+            cell.addEventListener('click', handleClick);
+        });
+    };
+    
+
+    // New setupUI function
     const setupUI = () => {
         generateGrid(playerBoard);
         generateGrid(computerBoard);
@@ -102,14 +152,45 @@ const dom = (function () {
         modal.showModal();
         randomButton.addEventListener('click', () => {
             playerShipPositions.length = 0; 
-            randomlyPlaceShips(modalGrid, true);
+            //randomlyPlaceShips(playerBoard, true, playerGameBoard); // Pass playerGameBoard for ship placement
+            //placeShipsOnBoard(modalGrid, playerShipPositions);
+
             startButton.classList.remove('hidden');
         });
-        startButton.addEventListener('click', startGame);
+        startButton.addEventListener('click', () => {
+            startGame();
+        });
     };
+
+    const updateCellColor = (boardElement, x, y, success) => {
+        const cell = boardElement.querySelector(`div[data-x="${x}"][data-y="${y}"]`);
+        if (cell) {
+            cell.style.backgroundColor = success ? 'red' : 'green';
+        }
+    };
+
+    const showGameOverModal = (winner) => {
+        winnerAnnouncement.textContent = `${winner} Wins!`;
+        gameOverModal.showModal();
+    };
+
+    
 
     return {
         setupUI,
+        setupAttackListeners,
+        onRandomPlaceShips: (callback) => {
+            randomButton.addEventListener('click', callback);
+        },
+        onStartGame: (callback) => {
+            startButton.addEventListener('click', callback);
+        },
+        randomlyPlaceShips,
+        playerShipPositions,
+        placeShipsOnBoard,
+        updateCellColor,
+        showGameOverModal,
+        
     };
 })();
 

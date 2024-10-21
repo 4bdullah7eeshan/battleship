@@ -52,3 +52,28 @@ dialog[open] {
     align-items: center;
     gap: 10rem;
 }
+
+#game-over-modal {
+    width: 300px;
+    padding: 20px;
+    text-align: center;
+    background-color: white;
+    border-radius: 8px;
+}
+
+#game-over-modal .modal-content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+#restart-game {
+    padding: 10px 20px;
+    cursor: pointer;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+}

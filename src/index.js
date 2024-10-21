@@ -1,8 +1,10 @@
 // index.js
 import './css/reset.css';
 import './css/style.css';
+import gameDriver from './modules/gameDriver.js';
 import dom from './modules/dom.js';
 
-window.addEventListener('DOMContentLoaded', () => {
-    dom.setupUI();
+document.addEventListener('DOMContentLoaded', () => {
+    dom.setupUI(); // Set up the UI elements, grids, and event listeners
+    gameDriver.initializeGame(); // Initialize the game logic
 });
