@@ -112,19 +112,8 @@ const dom = (function () {
 
     const startGame = () => {
         modal.close();
-        //placeShipsOnBoard(playerBoard, playerShipPositions);
-        // randomlyPlaceShips(computerBoard, false, computerGameBoard);
     };
 
-/*    const setupAttackListeners = (attackHandler) => {
-        computerBoard.querySelectorAll('.cell').forEach(cell => {
-            cell.addEventListener('click', () => {
-                const x = parseInt(cell.dataset.x, 10);
-                const y = parseInt(cell.dataset.y, 10);
-                attackHandler(x, y);
-            });
-        });
-    };*/
     const setupAttackListeners = (attackHandler) => {
         computerBoard.querySelectorAll('.cell').forEach(cell => {
             const handleClick = () => {
@@ -152,9 +141,6 @@ const dom = (function () {
         modal.showModal();
         randomButton.addEventListener('click', () => {
             playerShipPositions.length = 0; 
-            //randomlyPlaceShips(playerBoard, true, playerGameBoard); // Pass playerGameBoard for ship placement
-            //placeShipsOnBoard(modalGrid, playerShipPositions);
-
             startButton.classList.remove('hidden');
         });
         startButton.addEventListener('click', () => {
